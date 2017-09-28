@@ -1,0 +1,8 @@
+First do the following
+javac -d . [Intefacefile name.java]
+javac -d . [Class1.java]
+javac -d . [Class2.java]
+.
+.
+.
+javac -d .[Main.java]
