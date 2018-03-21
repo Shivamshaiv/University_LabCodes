@@ -1,0 +1,5 @@
+This program does
+Pulse Code Modulation
+1)Sampling
+2)Qauntization
+3)Encoding
