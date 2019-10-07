@@ -34,7 +34,7 @@ CODE SEGMENT
             INC SI
             DEC DI
             
-            LOOP LOOP_LABEL
+        LOOP LOOP_LABEL
                   
         
         
