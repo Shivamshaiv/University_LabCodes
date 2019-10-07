@@ -25,7 +25,7 @@ start:
         repne scasb
         cmp cx,0h
         je exit
-        inc ah           ; The final output in AL
+        inc ah           ; The final output in AH
         jmp loop_label
            
       exit:
