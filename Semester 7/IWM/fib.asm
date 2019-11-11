@@ -1,10 +1,11 @@
 DATA SEGMENT
     BCD DB 34H
-    BINARY DB ?
+    BINARY DB ? 
+    N DW 13
 DATA ENDS
 
 STACK_SEG SEGMENT STACK
-    DW 20 DUP(0)
+    DW 40 DUP(0)
     STACK_TOP LABEL WORD
 STACK_SEG ENDS
 
@@ -19,35 +20,27 @@ CODE SEGMENT
         
 
         
-        ; Function to convert BCD to Binary
-        PUSH AX
-        
-        MOV AL,BCD
-        MOV BL,BINARY
-        
-        CALL BCD_BINARY    
-        MOV BINARY,BL
-        
-        POP AX  
+        MOV CX,N   ; Move the final number    
+        CALL FIB_PROC
+       
         HLT
     ;The proc
-    BCD_BINARY PROC NEAR
-        MOV AH,AL 
-        AND AH,0F0h
-        AND AL,00Fh
-        ROR AH,4   
-        MOV CL,0Ah
-        XCHG AL,AH      ; To multiply a byte the content should be in AL  
-        PUSH AX         ; The result will be in AX hence we need to put AL somewhere
-        MUL CL       
-        MOV CH,AL       ; Result of multiplication
-        POP AX
-        XCHG AL,AH      ; Restore the normal state   
-        ADD AL,CH
-        MOV BL,AL       ; Because final answer is supposed to be in BL   
-        
+    FIB_PROC PROC NEAR
+        MOV BX,0H
+        MOV AX,01H
+        PUSH AX   
+        ;MOV BP,SP  
+        ;ADD BX,WORD PTR [BP]
+        PUSH BX
+        FIB_LOOP:
+            MOV BP,SP
+            MOV BX,WORD PTR [BP]
+            ADD BX,WORD PTR [BP+2]
+            PUSH BX
+        LOOP FIB_LOOP
+        HLT
         RET
-    BCD_BINARY ENDP
+    FIB_PROC ENDP
     
 END START
 CODE ENDS
